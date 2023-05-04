@@ -1,0 +1,66 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/api/users"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"users\": [\n    {\n      \"userName\": \"Andry\",\n      \"userId\": 23\n    },\n    {\n      \"userName\": \"Eduard\",\n      \"userId\": 12\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "priority": 1,
+      "request": {
+        "method": "GET",
+        "url": "/api/users?userId=23"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n      \"userName\": \"Andry\",\n      \"userId\": 23\n    }",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "priority": 2,
+      "request": {
+        "method": "GET",
+        "url": "/api/users?userId=25"
+      },
+      "response": {
+        "status": 200,
+        "body": "<user>\n  <userName>Peter</userName>\n  <userId>25</userId>\n</user>",
+        "headers": {
+          "Content-Type": "application/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/api/users",
+        "headers": {
+          "Content-Type": {
+            "matches": "application/json"
+          }
+        },
+        "bodyPatterns" : [ {
+          "equalToJson" : "{ \"userName\": \"Jack\", \"userId\": 15 }"
+        } ]
+      },
+      "response": {
+        "status": 201,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"status\":\"Created\"}"
+      }
+    }
+  ]
+}
